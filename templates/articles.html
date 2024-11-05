@@ -1,0 +1,63 @@
+<!-- articles.html -->
+{% extends 'base.html' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block content %}
+{% include 'includes/sidebar.html' %}
+<div class="container mt-4">
+    <div class="row">  
+        <div class="col-md-12">
+            <div class="container mt-4">
+                <h2 class="text-center mb-4">Hoş Geldiniz, {{ user['full_name'] }}</h2>
+                
+                <!-- Optional Search 
+                {% if session['user']['role'] == 'admin' %}
+                
+                {% endif %}
+                -->
+                {% include 'includes/optional_search.html' %}
+                <!-- Profilimi Göster Butonu -->
+                <!-- <a href="{{ url_for('user_profile', username=user['username']) }}" class="btn btn-primary float-right mb-3">Profilimi Göster</a> -->
+                
+                <div class="table-responsive mb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Content</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">isPublished</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in blog_posts.items %}
+                                <tr>
+                                    <td>{{ post['title'] }}</td>
+                                    <td>{{ post['author']['full_name'] }}</td>
+                                    <td>{{ post['date'] }}</td>
+                                    <td>{{ post['content'][:50]|safe + '...' }}</td>
+                                    <td><img src="{{ post['image'] }}" alt="Image" style="max-width: 50px; max-height: 50px; object-fit: contain;"></td>
+                                    <td>{{ post['category']['name'] }}</td>
+                                    <td>{{ post['is_published'] }}</td>
+                                    <td>
+                                        <a href="{{ url_for('blog_post', category_slug=post['category_slug'], post_slug=post['slug']) }}" class="btn btn-primary btn-sm d-block mb-2">Göster</a>
+                                        <a href="{{ url_for('edit_article', post_slug=post['slug']) }}" class="btn btn-warning btn-sm d-block mb-2">Düzenle</a>
+                                        <a href="#" class="btn btn-danger btn-sm d-block mb-2" onclick="deleteArticle('{{ post['slug'] }}')">Sil</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include "includes/pagination.html" %}
+                <!-- <a href="{{ url_for('logout') }}" class="btn btn-danger mb-4">Çıkış Yap</a> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Anasayfa{% endblock %}
+
+{% block content %}
+{% if blog_posts %}
+    {% include 'includes/carousel.html' %}
+{% endif %}
+<div class="container mt-4">
+    <div class="row">  
+        <div class="col-md-8">
+            {% for post in blog_posts.items %}
+            <div class="blog-card">
+                <img src="{{ post['image'] }}" class="card-img-top" alt="Image" style="width: 100%; height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h2 class="blog-title">{{ post['title'] }}</h2>
+                    <p class="blog-text">{{ post['content'][:200]|safe + '...' }}</p>
+                    <a href="{{ url_for('blog_post', category_slug=post['category_slug'], post_slug=post['slug']) }}" class="btn btn-light">Devamını Oku</a>
+                </div>
+                <div class="card-footer text-muted blog-info">
+                    Kategori: <a href="{{ url_for('category_posts', category_slug=post['category_slug']) }}">{{ post['category']['name'] }}</a> |
+                    Yazar: <a href="{{ url_for('user_profile', username=post['author']['username']) }}">{{ post['author']['full_name'] }}</a> |
+                    Tarih: {{ post['date'] }}
+                </div>
+            </div>    
+            {% endfor %}
+
+            {% include 'includes/pagination.html' %}
+        </div>
+    
+        <div class="col-md-4">
+            {% include 'includes/search.html' %}
+
+            {% include 'includes/popular_posts.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

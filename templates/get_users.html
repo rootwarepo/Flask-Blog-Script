@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Get Users{% endblock %}
+
+{% block content %}
+{% include 'includes/sidebar.html' %}
+<div class="container mt-4">
+    <div class="row">  
+        <div class="col-md-12">
+            <div class="container mt-4">
+                <h2 class="text-center mb-4">Hoş Geldiniz, {{ user['full_name'] }}</h2>
+                {% include 'includes/optional_search.html' %}
+                <!-- <a href="{{ url_for('new_article') }}" class="btn btn-success mb-3">Yeni Makale Ekle</a> -->
+
+                <!-- <a href="{{ url_for('user_profile', username=user['username']) }}" class="btn btn-primary float-right mb-3">Profilimi Göster</a> -->
+                
+                <div class="table-responsive mb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Profile Picture</th>
+                                <th scope="col">About</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in blog_posts.items %}
+                                <tr>
+                                    <td>{{ user['id'] }}</td>
+                                    <td>{{ user['username'] }}</td>
+                                    <td>{{ user['full_name'] }}</td>
+                                    <td>{{ user['email'] }}</td>
+                                    <td>{{ user['role'] }}</td>
+                                    <td><img src="{{ user['profile_picture'] }}" alt="Image" style="max-width: 50px; max-height: 50px; object-fit: contain;"></td>
+                                    <td>{{ user['about'] }}</td>
+                                    <td>
+                                        <a href="{{ url_for('user_profile', username=user['username']) }}" class="btn btn-primary btn-sm d-block mb-2">Göster</a>
+                                        <a href="{{ url_for('edit_profile', username=user['username']) }}" class="btn btn-warning btn-sm d-block mb-2">Düzenle</a>
+                                        <a href="#" class="btn btn-danger btn-sm d-block mb-2" onclick="deleteUser('{{ user['id'] }}')">Sil</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include "includes/pagination.html" %}
+
+                <!-- <a href="{{ url_for('logout') }}" class="btn btn-danger mb-4">Çıkış Yap</a> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

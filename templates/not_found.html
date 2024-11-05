@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Sayfa Bulunamadı{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">  
+        <div class="col-md-8">
+            <div class="container mt-4">
+                <div class="alert alert-danger">
+                    <strong>Hata!</strong> Sayfa bulunamadı.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            {% include 'includes/search.html' %}
+
+            {% include 'includes/popular_posts.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
