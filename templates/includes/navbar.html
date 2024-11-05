@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" height="40" class="mr-2">
+    </a>
+    <a class="navbar-brand" href="{{ url_for('index') }}">Yazılımhane</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item {% if request.endpoint == 'index' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('index') }}">Ana Sayfa</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'categories_page' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('categories_page') }}">Kategoriler</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('about') }}">Hakkımızda</a>
+            </li>
+            <li class="nav-item {% if request.endpoint == 'contact' %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('contact') }}">İletişim</a>
+            </li>
+            {% if 'user' in session %}
+            <li class="nav-item {% if request.endpoint in ['user_profile', 'edit_profile', 'dashboard'] %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Panel</a>
+            </li>
+            <!--
+                <li class="nav-item dropdown {% if request.endpoint in ['user_profile', 'edit_profile', 'dashboard'] %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profilim
+                    </a>
+                
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item {% if request.endpoint == 'user_profile' %} bg-dark active{% endif %}" href="{{ url_for('user_profile', username=session['user']['username']) }}">{{ session['user']['full_name'] }}</a>
+                        <a class="dropdown-item {% if request.endpoint == 'edit_profile' %} bg-dark active{% endif %}" href="{{ url_for('edit_profile', username=session['user']['username']) }}">Profilimi Düzenle</a>
+                        <a class="dropdown-item {% if request.endpoint == 'dashboard' %} bg-dark active{% endif %}" href="{{ url_for('dashboard') }}">Panel</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Çıkış</a>
+                    </div>
+            
+                </li>
+            -->
+            {% else %}
+                <li class="nav-item {% if request.endpoint == 'login' %}active{% endif %}">
+                    <a class="nav-link" href="{{ url_for('login') }}">Giriş Yap</a>
+                </li>
+            {% endif %}
+            <li class="nav-item d-flex align-items-center">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="darkModeToggle" {% if theme == 'dark-mode' %}checked{% endif %}>
+                    <label class="custom-control-label text-white" for="darkModeToggle">{% if theme == 'dark-mode' %}Gece Modu{% else %}Gündüz Modu{% endif %}</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
