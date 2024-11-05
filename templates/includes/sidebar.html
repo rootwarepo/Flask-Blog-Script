@@ -1,0 +1,16 @@
+<div id="mySidebar" class="sidebar">
+    <a href="{{ url_for('new_article') }}"><i class="fas fa-plus"></i> Yeni Makale Ekle</a>
+    {% if session['user']['role'] == 'admin' %}
+    <a href="{{ url_for('get_users') }}"><i class="fas fa-user"></i> Kullanıcı İşlemleri</a>
+    <a href="{{ url_for('get_categories') }}"><i class="fas fa-list"></i> Kategori İşlemleri</a>
+    <a href="{{ url_for('new_category') }}"><i class="fas fa-folder-plus"></i> Yeni Kategori Ekle</a>
+    {% endif %}
+    <a href="{{ url_for('user_profile', username=session['user']['username']) }}"><i class="fas fa-user-circle"></i> Profilim</a>
+    <a href="{{ url_for('edit_profile', username=session['user']['username']) }}"><i class="fas fa-user-edit"></i> Profilimi Düzenle</a>
+    <a href="{{ url_for('dashboard') }}"><i class="fas fa-cogs"></i> Panel</a>
+    <a href="{{ url_for('articles') }}"><i class="fas fa-file"></i> Makalelerim</a>
+    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Çıkış</a>
+</div> 
+<div id="main">
+    <button id="openButton" class="openbtn" onclick="toggleNav()">☰</button>
+</div>

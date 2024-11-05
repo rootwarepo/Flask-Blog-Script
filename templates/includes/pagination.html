@@ -1,0 +1,21 @@
+<div class="pagination justify-content-center mb-3">
+    {% if blog_posts.has_prev %}
+        <a class="page-link" href="{{ url_for(request.endpoint, page=blog_posts.prev_num, username=user['username'] if request.endpoint in ['user_profile', 'edit_profile'] else None, category_slug=category_slug if request.endpoint == 'category_posts' else None, q=request.args.get('q') if request.endpoint in ['search', 'get_users', 'get_categories', 'articles'] else None, searchBy=request.args.get('searchBy') if request.endpoint in ['get_users', 'get_categories', 'articles'] else None ) }}" aria-label="Önceki">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    {% endif %}
+
+    {% for page_num in blog_posts.iter_pages() %}
+        {% if page_num %}
+            <a class="page-link {% if page_num == blog_posts.page %}active bg-dark text-white{% endif %}" href="{{ url_for(request.endpoint, page=page_num, username=user['username'] if request.endpoint in ['user_profile', 'edit_profile'] else None, category_slug=category_slug if request.endpoint == 'category_posts' else None, q=request.args.get('q') if request.endpoint in ['search', 'get_users', 'get_categories', 'articles'] else None, searchBy=request.args.get('searchBy') if request.endpoint in ['search', 'get_users', 'get_categories', 'articles'] else None ) }}">{{ page_num }}</a>
+        {% else %}
+            <span class="dots" style="margin: 0 5px;">...</span>
+        {% endif %}
+    {% endfor %}
+
+    {% if blog_posts.has_next %}
+        <a class="page-link" href="{{ url_for(request.endpoint, page=blog_posts.next_num, username=user['username'] if request.endpoint in ['user_profile', 'edit_profile'] else None, category_slug=category_slug if request.endpoint == 'category_posts' else None, q=request.args.get('q') if request.endpoint in ['search', 'get_users', 'get_categories', 'articles'] else None, searchBy=request.args.get('searchBy') if request.endpoint in ['get_users', 'get_categories', 'articles'] else None ) }}" aria-label="Sonraki">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    {% endif %}
+</div>

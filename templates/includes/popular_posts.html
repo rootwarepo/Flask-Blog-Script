@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="card-title">En Çok Okunanlar</h4>
+        <ul class="list-group">
+            {% for post in popular_posts %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('blog_post', category_slug=post['category_slug'], post_slug=post['slug']) }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

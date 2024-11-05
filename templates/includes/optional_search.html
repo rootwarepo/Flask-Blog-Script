@@ -1,0 +1,32 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <form class="form-inline" method="GET" action="{% if request.endpoint == 'get_users' %}{{ url_for('get_users') }}{% elif request.endpoint == 'articles' %}{{ url_for('articles') }}{% else %} {{url_for('get_categories')}} {% endif %}">
+            <div class="input-group flex-grow-1">
+                <div class="input-group-prepend">
+                    {% if request.endpoint == 'get_users' %}
+                        <select class="form-control" name="searchBy">
+                            <option value="username">Kullanıcı Adı</option>
+                            <option value="full_name">Ad Soyad</option>
+                            <option value="about">Hakkında</option>
+                            <option value="role">Rol</option>
+                        </select>
+                    {% elif request.endpoint == 'articles' %}
+                        <select class="form-control" name="searchBy">
+                            <option value="title">Başlık</option>
+                            <option value="content">İçerik</option>
+                            <option value="author">Yazar</option>
+                            <option value="date">Tarih</option>
+                        </select>
+                    {% else %}
+                        <select class="form-control" name="searchBy">
+                            <option value="name">Başlık</option>
+                            <option value="description">Açıklama</option>
+                        </select>
+                    {% endif %}
+                </div>
+                <input type="text" class="form-control" id="search" name="q" placeholder="Ara...">
+                <button class="btn btn-outline-secondary" type="submit">Ara</button>
+            </div>
+        </form>
+    </div>
+</div>

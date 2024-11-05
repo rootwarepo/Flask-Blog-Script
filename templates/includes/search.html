@@ -1,0 +1,12 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <form class="form-inline" method="GET" action="{{ url_for('search') }}">
+            <div class="input-group flex-grow-1">
+                <input type="text" class="form-control" id="search" name="q" placeholder="Ara...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Ara</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
