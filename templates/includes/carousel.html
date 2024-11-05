@@ -1,0 +1,24 @@
+{% if blog_posts.items|length > 0 %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        {% for post in blog_posts.items %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                <img src="{{ post['image'] }}" class="d-block w-100" alt="Slide {{ loop.index }}">
+                <div class="carousel-caption d-md-block">
+                    <h2>{{ post['title'][:50] + '...' }}</h2>
+                    <p>{{ post['content'][:100]|safe + '...' }}</p>
+                    <a href="{{ url_for('blog_post', category_slug=post['category_slug'], post_slug=post['slug']) }}" class="btn btn-light">Devamını Oku</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% endif %}
